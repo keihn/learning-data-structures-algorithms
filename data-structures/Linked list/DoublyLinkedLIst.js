@@ -38,7 +38,6 @@ class DoublyLinkedList {
 	{
 		const newNode = new Node(value)
 
-        
 		newNode.next = this.head;
 		this.head.previous = newNode;
 		this.head = newNode;
@@ -108,9 +107,36 @@ class DoublyLinkedList {
 		const leader = this.traverseToIndex(index-1);
 		const unwantedNode = leader.next;
 		leader.next = unwantedNode.next;
+		leader.next.previous = leader;
 		this.length--
 		return this.printList();
 	}
+
+	reverse()
+	{
+		if (!this.head.next)
+		{
+			return this.head;
+		}
+
+		let first = this.head;
+		this.tail = this.head
+		let second = first.next
+
+		while(second)
+		{
+			const temp =  second.next;
+			second.next = first;
+			first = second;
+			second = temp;
+		}
+		this.head.next = null;
+		this.head = first;
+
+		return this.printList();
+	}
+
+	
 }
 
 
@@ -120,4 +146,4 @@ myLinkedList.append(6)
 myLinkedList.prepend(10)
 myLinkedList.insert(1,99)
 
-console.log(myLinkedList.printList())
+console.log(myLinkedList.reverse())
